@@ -6,15 +6,21 @@ import { getMovieIdToDisplay } from '../redux/movieSlice';
 
 const MainContainer = () => {
     const movie = useSelector((store) => store?.movie?.nowPlayingMovies);
-    if (!movie) return;// early return in react
+    let cnt = 0;
+    useEffect(() => {
+        if (movie)
+            console.log(movie[0]);
+    }, [movie])
+    if (!movie) return; // early return in react
     const val = Math.floor(Math.random() * (movie.length));
-    const { overview, title } = movie[val];
-    const id = movie[val].id;
+    const { overview, title, id } = movie[val];
     return (
-        <div>
-            <VideoTitle title={title} overview={overview} />
-            <VideoBackground movieId={id} />
-        </div>
+        <>
+            <div>
+                <VideoTitle title={title} overview={overview} movieId={id} />
+                <VideoBackground movieId={id} />
+            </div>
+        </>
     )
 }
 

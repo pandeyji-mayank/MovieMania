@@ -3,6 +3,7 @@ import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import Login from './Login';
 import Browse from './Browse';
 import ShowMovie from './ShowMovie';
+import FavMovie from './FavMovie';
 const SignUp = () => {
     const appRouter = createBrowserRouter([
         {
@@ -16,6 +17,10 @@ const SignUp = () => {
         {
             path: '/show',
             element: <ShowMovie />
+        },
+        {
+            path: '/fav',
+            element: <FavMovie />
         }
     ])
     return (
@@ -26,3 +31,6 @@ const SignUp = () => {
 }
 
 export default SignUp
+
+
+// to add movie based on genres

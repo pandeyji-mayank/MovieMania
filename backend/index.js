@@ -6,12 +6,10 @@ import userRoutes from './routes/userRoutes.js';
 import cors from 'cors';
 dotenv.config();
 dbconnection();
-
 const app = express();
 const PORT = process.env.PORT;
 
 
-//middleware 
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(cookieParser());
@@ -23,7 +21,7 @@ const corsOptions = {
 
 app.use(cors(corsOptions));
 
-//api
+
 app.use('/api/user', userRoutes);
 
 app.listen(PORT, () => {

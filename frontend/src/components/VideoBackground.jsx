@@ -10,15 +10,21 @@ const VideoBackground = ({ movieId }) => {
     console.log(movieId);
     useMovieById(movieId);
     return (
-        <div className='w-screen'>
-            <iframe
-                className='w-screen aspect-video opacity-70 -z-10 bg-zinc-900'
-                src={`https://www.youtube.com/embed/${trailer.key ? trailer.key : 'xcJtL7QggTI'}?si=n3tGEITKWHQddX_w&autoplay=1&mute=true&controls=0&rel=0&modestbranding=1&loop=1&playlist=${trailer.key ? trailer.key : 'xcJtL7QggTI'}`}
-                title="YouTube video player"
-                frameBorder="0"
-                allowFullScreen
-            />
-        </div>
+        <>
+            <div>
+                <div className='relative w-screen'>
+
+                    <iframe
+                        className='w-screen aspect-video  -z-10 bg-zinc-900'
+                        src={`https://www.youtube.com/embed/${trailer.key ? trailer.key : 'xcJtL7QggTI'}?si=n3tGEITKWHQddX_w&autoplay=1&mute=1&controls=0&rel=0&modestbranding=1&loop=1&playlist=${trailer.key ? trailer.key : 'xcJtL7QggTI'}`}
+                        title="YouTube video player"
+                        frameBorder="0"
+                        allowFullScreen
+                    />
+                </div>
+                <div className="absolute inset-0 bg-black opacity-70"></div>
+            </div>
+        </>
     )
 
 }

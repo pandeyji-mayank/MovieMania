@@ -30,11 +30,11 @@ const ShowMovie = () => {
             <Header />
             <div className=''>
                 {movieId && <div>
-                    <VideoTitle title={moviedetails.title} overview={moviedetails.overview} />
+                    <VideoTitle title={moviedetails.title} overview={moviedetails.overview} movieId={moviedetails.id} />
                     <VideoBackground movieId={movieId} />
                 </div>}
             </div>
-            <div className='-mt-96 z-40 relative'>
+            <div className='-mt-40 z-40 relative'>
                 <MovieList title={'suggested movies'} movies={suggestedMovie} />
             </div>
         </>
