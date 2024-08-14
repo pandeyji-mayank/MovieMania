@@ -4,6 +4,7 @@ import Login from './Login';
 import Browse from './Browse';
 import ShowMovie from './ShowMovie';
 import FavMovie from './FavMovie';
+import Genre from './Genre';
 const SignUp = () => {
     const appRouter = createBrowserRouter([
         {
@@ -21,6 +22,10 @@ const SignUp = () => {
         {
             path: '/fav',
             element: <FavMovie />
+        },
+        {
+            path: '/genre',
+            element: <Genre />
         }
     ])
     return (

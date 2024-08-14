@@ -7,7 +7,7 @@ import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { getMovieIdToDisplay } from '../redux/movieSlice';
 
-const SingleMovieComponent = ({ id, onRemove }) => {
+const SingleMovieComponent = ({ id, onRemove, isFav }) => {
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const [movie, setmovie] = useState('');
@@ -15,7 +15,7 @@ const SingleMovieComponent = ({ id, onRemove }) => {
     useEffect(() => {
         const getmoviedetails = async () => {
             try {
-                if (id && (!movie || !coverMovie)) {
+                if (id) {
                     const res = await axios.get(`https://api.themoviedb.org/3/movie/${id}`, options);
                     setmovie(res.data);
                     setcoverMovie(BANNER_URL + res.data.backdrop_path);
@@ -27,10 +27,10 @@ const SingleMovieComponent = ({ id, onRemove }) => {
         }
         getmoviedetails();
 
-    }, [movie, coverMovie])
+    }, [movie, coverMovie, id])
     const removefromfav = async () => {
         try {
-            const res = await axios.post(API_ENDPOINT + 'removefromfav', { movieId: id }, {
+            const res = await axios.post(API_ENDPOINT + (isFav ? 'removefromfav' : 'removeWatchList'), { movieId: id }, {
                 headers: {
                     'Content-Type': 'application/json',
                     "Access-Control-Allow-Credentials": true,
@@ -53,8 +53,8 @@ const SingleMovieComponent = ({ id, onRemove }) => {
     return (
         <>
             {
-                movie && <div className="ease-in-out card card-side m-8 mb-12 hover:shadow-xl hover:shadow-slate-700 flex items-center justify-center  max-w-screen-xl indicator hover:scale-[101%] transition-all duration-700 " >
-                    <span onClick={removefromfav} className="indicator-item indicator-top indicator-end badge badge-secondary cursor-pointer bg-red-600 border-none text-white p-4 font-extrabold"
+                movie && <div className="ease-in-out card card-side m-8 mb-12  hover:shadow-xl hover:shadow-slate-700 flex items-center justify-center  max-w-screen-xl indicator hover:scale-[101%] transition-all duration-700 " >
+                    <span onClick={removefromfav} className=" hover:scale-110 hover:shadow-2xl hover:shadow-white indicator-item indicator-top indicator-end badge badge-secondary cursor-pointer bg-red-600 border-none text-white p-4 font-extrabold transition-all duration-300"
                     >
                         X
                     </span>
@@ -92,7 +92,7 @@ const SingleMovieComponent = ({ id, onRemove }) => {
                                 <div className='mt-4 flex gap-2 font-semibold'>
                                     {
                                         movie.genres && movie.genres.map((item, i) => {
-                                            return <div className='me-1'>{item.name}</div>;
+                                            return <div className='me-1' key={i}>{item.name}</div>;
                                         })
                                     }
                                 </div>

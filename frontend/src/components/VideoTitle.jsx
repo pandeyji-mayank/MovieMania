@@ -28,9 +28,31 @@ const VideoTitle = ({ title, overview, movieId }) => {
         }
         getmoviedetails();
     }, [value, redirect, title, movieId])
-    const handleClick = async () => {
+    const handleClickfav = async () => {
         try {
             const res = await axios.post(API_ENDPOINT + 'addmovietofav', { movieId }, {
+                headers: {
+                    'Content-Type': 'application/json',
+                    "Access-Control-Allow-Credentials": true,
+                },
+                withCredentials: true,
+            });
+            toast.success(res.data.message);
+            if (res.data.success) {
+                toast(red.data.message)
+            }
+
+        } catch (error) {
+            if (error.response) {
+                toast.error(error.response.data.message);
+            }
+            else
+                console.log(error);
+        }
+    }
+    const handleClickwatch = async () => {
+        try {
+            const res = await axios.post(API_ENDPOINT + 'addwatchlist', { movieId }, {
                 headers: {
                     'Content-Type': 'application/json',
                     "Access-Control-Allow-Credentials": true,
@@ -74,14 +96,14 @@ const VideoTitle = ({ title, overview, movieId }) => {
                 </div>
                 <p className='mb-10 w-3/6 mt-2' >{movie.overview}</p>
                 <div className=' flex items-center mt-4 h-12'>
-                    <a href={redirect}
+                    <button onClick={handleClickwatch}
                         className=' h-full flex items-center px-6 py-2 m- bg-white text-black rounded-md  opacity-80 hover:scale-105 hover:opacity-100 transition-all duration-200' >
                         <CiPlay1 size="24px" />
                         <span className='ms-2'>
                             Add to Watchlist
                         </span>
-                    </a>
-                    <button onClick={handleClick} className=' h-full flex items-center px-6 py-2 m-3 bg-white text-black rounded-md opacity-80 hover:scale-105 hover:opacity-100 transition-all duration-200'>
+                    </button>
+                    <button onClick={handleClickfav} className=' h-full flex items-center px-6 py-2 m-3 bg-white text-black rounded-md opacity-80 hover:scale-105 hover:opacity-100 transition-all duration-200'>
                         <BsInfoCircle size='24px' />
                         <span className='ms-2'>
                             Add to favourites

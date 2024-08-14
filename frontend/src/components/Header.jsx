@@ -46,36 +46,41 @@ const Header = () => {
     }
 
     const navigatetofav = () => {
-        navigate('/fav');
+        navigate('/fav', { state: { isFav: 1 } });
+        // navigate('/show', { state: { movieId: id, moviedetails } });
     }
-    // const navigatetoHome = () => {
-    //     if (toggle === false) {
-    //         setToggle(true)
-    //     }
-    // }
+    const navigatetowatchlist = () => {
+        navigate('/fav', { state: { isFav: 0 } });
+    }
+    const navigatetogenrepage = () => {
+        navigate('/genre');
+    }
     useEffect(() => {
         console.log(toggle);
-        // setToggle(false);
     }, [toggle]);
 
     return (
         <div className='absolute  z-20 flex w-[100%] px-6 items-center justify-between  bg-gradient-to-b from-black'>
 
-            <h1 className={`text-red-500 text-3xl  ${casing ? 'uppercase' : ' '} ${casing ? '' : 'scale-105'}   font-extrabold focus-within font-mono tracking-widest duration-700`}>movie flix</h1>
+            <h1 className={`text-red-500 text-3xl  ${casing ? 'uppercase' : 'lowercase'} ${casing ? '' : 'scale-105'}   font-extrabold focus-within font-mono tracking-widest duration-700`}>movie mania</h1>
             {
                 (user && <div className='flex items-center'>
                     <h1
                         className='text-lg font-medium text-white'
                     >
-                        <div className="dropdown opacity-85" >
-                            <div tabIndex={0} role="button" className="btn m-1 text-white opacity-100">
-                                <IoIosArrowDropdown className='' color='white' size={24} />
-                                {user.fullName}
+                        <div className='flex items-center'>
+
+                            <div onClick={navigatetogenrepage} >Genre</div>
+                            <div className="dropdown opacity-85" >
+                                <div tabIndex={0} role="button" className="btn m-1 text-white opacity-100">
+                                    <IoIosArrowDropdown className='' color='white' size={24} />
+                                    {user.fullName}
+                                </div>
+                                <ul tabIndex={0} className="dropdown-content menu bg-base-100 rounded-box z-[1] w-52 p-2 shadow">
+                                    <li className='hover:opacity-100' onClick={navigatetofav} ><a>Favourites</a></li>
+                                    <li className='hover:opacity-100' onClick={navigatetowatchlist} ><a>WatchList</a></li>
+                                </ul>
                             </div>
-                            <ul tabIndex={0} className="dropdown-content menu bg-base-100 rounded-box z-[1] w-52 p-2 shadow">
-                                <li className='hover:opacity-100' onClick={navigatetofav} ><a>Favourite Movies</a></li>
-                                <li><a>Movies To Watch</a></li>
-                            </ul>
                         </div>
                     </h1>
                     <div className='ml-4'>

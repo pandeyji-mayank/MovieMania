@@ -119,13 +119,11 @@ export const removeMovieFromFav = async (req, res) => {
         await User.findByIdAndUpdate(userId, { $pull: { favourites: movieId } });
         return res.status(200).json({ message: "Movie removed from favorite list", success: true });
 
-
     } catch (error) {
         console.log(error);
         return res.status(500).json({ message: "Server Error", success: false });
     }
 }
-
 export const addMovieToWatchlist = async (req, res) => {
     try {
         const userId = req.userId;
@@ -139,5 +137,35 @@ export const addMovieToWatchlist = async (req, res) => {
     } catch (error) {
         console.log(error);
         return res.status(500).json({ message: "Server Error ", success: false });
+    }
+}
+export const getWatchList = async (req, res) => {
+    try {
+        const userId = req.userId;
+        const user = await User.findById(userId);
+        if (!user) {
+            return res.status(404).json({ message: "User not logged in", success: false });
+        }
+        return res.status(200).json({ message: "User's favorite movies", data: user.watchlist, success: true });
+
+    } catch (error) {
+        console.log(error);
+        return res.status(500).json({ message: "Server Error", success: false });
+    }
+}
+
+export const removeWatchList = async (req, res) => {
+    try {
+        const userId = req.userId;
+        const { movieId } = req.body;
+        const user = await User.findOne({ _id: userId, watchlist: { $in: [movieId] } });
+        if (user) {
+            await User.findByIdAndUpdate(userId, { $pull: { watchlist: movieId } });
+            return res.status(200).json({ message: "Movie added in watchlist", success: true });
+        }
+        return res.status(404).json({ message: "No Such movie in watchlist", success: false });
+    } catch (error) {
+        console.log(error);
+        return res.status(500).json({ message: "Server Error", success: false });
     }
 }
