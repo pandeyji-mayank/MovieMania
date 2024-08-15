@@ -3,6 +3,7 @@ import Header from './Header'
 import axios from 'axios'
 import { options } from '../utils/constant'
 import MovieTile from './MovieTile'
+import toast from 'react-hot-toast'
 
 
 const Genre = () => {
@@ -38,6 +39,7 @@ const Genre = () => {
 
     const [tempgenresdetails, setTempGenresDetails] = useState({ id: 28, name: 'Action' });
     useEffect(() => {
+        toast.success(`${tempgenresdetails.name + ' Movie'}`);
         console.log(tempgenresdetails);
         setGenreId(tempgenresdetails.id);
     }, [tempgenresdetails])
@@ -62,10 +64,10 @@ const Genre = () => {
                     }
                 </div>
                 <div className='w-full  h-full'>
-                    <div className='w-full rounded-t-2xl  bg-slate-600 mt-32'>
+                    <div className='w-full rounded-t-2xl  bg-slate-800 mt-32'>
                         <div className='h-1'> </div>
                         <div className='w-full py-7 flex items-center justify-center'>
-                            <h2 className='text-7xl'>
+                            <h2 className='text-7xl font-semibold tracking-widest ease-linear animate-pulse  text-white'>
                                 All {tempgenresdetails.name} Movies
                             </h2>
                         </div>
