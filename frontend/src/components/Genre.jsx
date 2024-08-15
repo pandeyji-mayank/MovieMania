@@ -9,12 +9,13 @@ const Genre = () => {
     const [genre, setGenre] = useState();
     const [genreId, setGenreId] = useState(28);
     const [movie, setMovie] = useState(null);
+    const [currgenre, setCurrGenre] = useState('Action');
     useEffect(() => {
         const getdetails = async () => {
             try {
                 const res = await axios.get('https://api.themoviedb.org/3/genre/movie/list', options);
                 setGenre(res.data.genres);
-                console.log(genre);
+
             } catch (error) {
                 console.log(error);
             }
@@ -35,6 +36,13 @@ const Genre = () => {
         getmoviebyGenre();
     }, [genreId])
 
+    const [tempgenresdetails, setTempGenresDetails] = useState({ id: 28, name: 'Action' });
+    useEffect(() => {
+        console.log(tempgenresdetails);
+        setGenreId(tempgenresdetails.id);
+    }, [tempgenresdetails])
+
+
     return (
         <div>
             <Header />
@@ -44,7 +52,7 @@ const Genre = () => {
                     {
                         genre && genre.map((item, ind) => (
                             <button
-                                onClick={() => { setGenreId(item.id) }}
+                                onClick={() => setTempGenresDetails(item)}
                                 key={ind}
                                 className="btn my-1 mx-8"
                             >
@@ -54,17 +62,24 @@ const Genre = () => {
                     }
                 </div>
                 <div className='w-full  h-full'>
-                    <div className='w-full rounded-t-2xl bg-slate-600 mt-32'>
-                        <div className='h-1'></div>
-                        <div class="grid grid-cols-4 gap-4 m-8 ">
+                    <div className='w-full rounded-t-2xl  bg-slate-600 mt-32'>
+                        <div className='h-1'> </div>
+                        <div className='w-full py-7 flex items-center justify-center'>
+                            <h2 className='text-7xl'>
+                                All {tempgenresdetails.name} Movies
+                            </h2>
+                        </div>
+                        <div className="grid grid-cols-4 gap-4 m-8 ">
                             {
                                 movie && (
                                     movie.map((movieItem) => {
-                                        return <MovieTile key={movieItem.id} movie={movieItem} />
+                                        return <MovieTile key={movieItem.id} movieId={movieItem.id} />
                                     })
                                 )
                             }
                         </div>
+
+                        <div className='h-20  w-full flex justify-center ' ><span className="loading loading-ring loading-lg"></span></div>
                     </div>
                 </div>
             </div>
