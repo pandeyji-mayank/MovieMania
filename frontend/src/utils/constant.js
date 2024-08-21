@@ -1,4 +1,4 @@
-export const API_ENDPOINT = 'http://localhost:8080/api/user/';
+export const API_ENDPOINT = 'https://moviemania-j9fk.onrender.com/api/user/';
 
 
 export const options = {

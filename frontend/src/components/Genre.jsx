@@ -4,6 +4,7 @@ import axios from 'axios'
 import { options } from '../utils/constant'
 import MovieTile from './MovieTile'
 import toast from 'react-hot-toast'
+import { motion } from 'framer-motion'
 
 
 const Genre = () => {

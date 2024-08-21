@@ -6,6 +6,7 @@ import toast from 'react-hot-toast';
 import { useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { setUser } from '../redux/userSlice';
+import { motion } from 'framer-motion';
 const Login = () => {
     const [loading, setLoading] = useState(false);
     const [isLogin, setIsLogin] = useState(true);
@@ -91,15 +92,40 @@ const Login = () => {
                     <input value={email} onChange={(e) => setEmail(e.target.value)} type="email" placeholder='Your Email ' className='outline-none p-2 my-2 rounded-md bg-gray-700' />
                     <label className='text-xl font-semibold mt-2' >Password</label>
                     <input value={password} onChange={(e) => setPassword(e.target.value)} type="password" placeholder='Your Password' className='outline-none p-2 mt-2  rounded-md bg-gray-700' />
-                    <button className='h-12  hover:bg-red-400 hover:scale-105 overflow-hidden bg-red-600 mt-6 p-3 rounded-md font-semibold flex  items-center justify-center' onClick={getInputData} >
+                    <motion.button
+                        className='h-12  hover:bg-blue-400 hover:shadow-blue-300 shadow-2xl shadow-red-400   hover:scale-105 overflow-hidden bg-red-600 mt-6 p-3 rounded-md font-semibold flex  items-center justify-center transition-all duration-200'
+                        onClick={getInputData} >
                         {
                             loading && <span className="loading loading-ring loading-lg "></span>
                         }
                         {
                             (!loading) && (isLogin ? "LogIn" : "SignUp")
                         }
-                    </button>
-                    <p className='mt-2'>{isLogin ? "New Here   ?" : "Already Have an Account?"} <span className='cursor-pointer ml-2 text-blue-300 font-semibold' onClick={() => setIsLogin(!isLogin)}>{isLogin ? "Sign Up" : "Log In"}</span> </p>
+                    </motion.button>
+
+
+                    <p className='mt-2'>
+                        {isLogin ? "New Here?" : "Already Have an Account?"}
+                        <motion.span
+                            className='cursor-pointer ml-2 font-semibold'
+                            initial={{ x: -100, color: '#0000FF' }} // initial position and color
+                            whileHover={{
+                                x: 0,
+                                color: '#87CEEB', // skyblue color
+                                transition: { type: 'spring', stiffness: 300 }
+                            }}
+                            whileTap={{ scale: 0.95 }} // optional: shrink on click
+                            onMouseLeave={{
+                                x: -100,
+                                color: '#0000FF', // back to original color
+                                transition: { type: 'spring', stiffness: 300 }
+                            }}
+                            onClick={() => setIsLogin(!isLogin)}
+                        >
+                            {isLogin ? "Sign Up" : "Log In"}
+                        </motion.span>
+                    </p>
+                    {/* <p className='mt-2'>{isLogin ? "New Here   ?" : "Already Have an Account?"} <span className='cursor-pointer ml-2 text-blue-300 font-semibold' onClick={() => setIsLogin(!isLogin)}>{isLogin ? "Sign Up" : "Log In"}</span> </p> */}
                 </div>
             </form>
         </div>
