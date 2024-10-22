@@ -1,4 +1,4 @@
-export const API_ENDPOINT = 'http://localhost:8000/api/user/';
+export const API_ENDPOINT = 'https://moviemania-sh1z.onrender.com/api/user/';
 
 
 export const options = {
